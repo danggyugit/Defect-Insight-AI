@@ -1,14 +1,35 @@
 # 🏭 Manufacturing Defect Insight AI
 
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)
+![XGBoost](https://img.shields.io/badge/ML-XGBoost%20%7C%20LightGBM-green)
+![SHAP](https://img.shields.io/badge/XAI-SHAP-blueviolet)
+![PyTorch](https://img.shields.io/badge/DL-PyTorch%201D--CNN-EE4C2C?logo=pytorch&logoColor=white)
+![Tests](https://img.shields.io/badge/pytest-56%20passed-brightgreen)
+
 첨단 제조산업(디스플레이·반도체·2차전지)에서 불량 발생 시 **수백 개의 공정 변수 중
 어떤 변수가 유의한지, 어떤 변수 조합이 불량과 관련되는지, 어떤 조건에서 불량 확률이
 증가하는지** 자동으로 탐색하는 분석 플랫폼입니다.
 
-통계분석 + Machine Learning + Explainable AI(SHAP) + Rule Discovery를 결합하고,
-결과를 제조 엔지니어가 이해할 수 있는 대시보드와 자동 리포트로 제공합니다.
+통계분석 + Machine Learning + Explainable AI(SHAP) + Rule Discovery + Deep Learning을
+결합하고, 결과를 제조 엔지니어가 이해할 수 있는 대시보드와 자동 리포트로 제공합니다.
 
 > ⚠️ 본 시스템은 "원인을 확정하는 AI"가 아닙니다. 분석 흐름은
 > **Correlation → Evidence → Hypothesis → Engineer Validation** 입니다.
+
+## 📸 화면
+
+<p align="center">
+  <img src="docs/screenshots/home.png" width="90%" alt="프로젝트 소개 — 문제 정의·설계 원칙·분석 파이프라인"/>
+</p>
+
+| 변수 **조합** 위험 탐지 — 두 변수 동시 상승 구간에서 불량률 5.7%→**53.9%** | **파형 딥러닝** — 평균으론 같지만 모양이 다른 불량 파형 |
+|---|---|
+| ![조합 위험 heatmap](docs/screenshots/multivariate.png) | ![파형 딥러닝](docs/screenshots/deeplearning.png) |
+
+| 유의차 분석 — 400개 변수 자동 검정 + 핵심 발견 요약 | 상관·MI — 숨은 **비선형** 변수 탐지 |
+|---|---|
+| ![유의차 분석](docs/screenshots/statistics.png) | ![상관·MI](docs/screenshots/correlation.png) |
 
 ## 빠른 시작
 
