@@ -4,7 +4,9 @@ from __future__ import annotations
 import streamlit as st
 
 from src.utils.config import RAW_DATASET_PATH
-from src.utils.st_helpers import DISCLAIMER
+from src.utils.st_helpers import DISCLAIMER, ensure_dataset_ready
+
+ensure_dataset_ready()  # 클라우드 최초 부팅 시 데이터 자동 생성
 
 st.title("🏭 Manufacturing Defect Insight AI")
 st.markdown(
@@ -13,10 +15,7 @@ st.markdown(
 )
 
 if not RAW_DATASET_PATH.exists():
-    st.error(
-        "데이터셋이 없습니다. 터미널에서 먼저 실행하세요:\n\n"
-        "```\npython -m src.data.generator\npython -m src.data.trace_generator\n```"
-    )
+    st.error("데이터셋 생성에 실패했습니다. 페이지를 새로고침해 주세요.")
 
 # ---------------------------------------------------------------- 문제 정의
 st.markdown("---")

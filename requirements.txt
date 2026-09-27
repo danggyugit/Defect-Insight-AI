@@ -1,3 +1,7 @@
+# torch는 CPU 전용 wheel 사용 — 기본 리눅스 wheel은 CUDA 포함(~2.5GB)이라
+# Streamlit Cloud 용량 초과. 로컬(mac)에서는 이 인덱스가 무시되어도 무방.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 pandas>=2.2
 numpy>=1.26
 pyarrow>=16.0

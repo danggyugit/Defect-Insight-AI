@@ -49,11 +49,13 @@ spike, 진동(oscillation), drift, level shift 같은 **파형 형태 이상**�
 df = cached_load_dataset()
 
 if not TRACE_PATH.exists():
-    st.error(
-        "FDC trace 데이터가 없습니다. 터미널에서 먼저 실행하세요:\n\n"
-        "```\npython -m src.data.trace_generator\n```"
-    )
-    st.stop()
+    # 클라우드 최초 방문 대응 — 파형 데이터 자동 생성 (seed 고정, 재현 동일)
+    with st.spinner("⏳ 최초 실행: FDC 센서 파형 생성 중... (30,000건 × 3센서 × 128step, 약 1분)"):
+        from src.data.trace_generator import generate_traces, save_traces
+
+        _traces, _pids = generate_traces(df)
+        save_traces(_traces, _pids)
+    st.rerun()
 
 
 @st.cache_data(show_spinner="Trace 데이터 로딩 중... (40MB)")

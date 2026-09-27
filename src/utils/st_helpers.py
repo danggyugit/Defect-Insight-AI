@@ -68,9 +68,29 @@ def insight_box(lines: list[str], title: str = "💡 이 화면의 핵심 발견
     st.success(f"**{title}**\n\n{body}")
 
 
+@st.cache_resource(show_spinner=False)
+def ensure_dataset_ready() -> bool:
+    """데이터셋이 없으면 자동 생성 (Streamlit Cloud 최초 부팅 대응).
+
+    합성 데이터는 seed 고정이라 언제 생성해도 동일 — git에 넣지 않고
+    배포 환경에서 최초 1회 생성한다 (재부팅 시 재생성, 약 1분).
+    """
+    from src.utils.config import RAW_DATASET_PATH, ensure_directories
+
+    if not RAW_DATASET_PATH.exists():
+        with st.spinner("⏳ 최초 실행: 데모 데이터셋 생성 중... (30,000건 × 400변수, 약 1분 — 최초 1회만)"):
+            from src.data.generator import generate_dataset
+
+            ensure_directories()
+            df = generate_dataset()
+            df.to_parquet(RAW_DATASET_PATH, index=False)
+    return True
+
+
 @st.cache_data(show_spinner="데이터 로딩 중...")
 def cached_load_dataset() -> pd.DataFrame:
-    """parquet 데이터셋 캐시 로딩."""
+    """parquet 데이터셋 캐시 로딩 (없으면 자동 생성)."""
+    ensure_dataset_ready()
     return load_dataset()
 
 

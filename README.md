@@ -31,6 +31,15 @@
 |---|---|
 | ![유의차 분석](docs/screenshots/statistics.png) | ![상관·MI](docs/screenshots/correlation.png) |
 
+## ☁️ Streamlit Cloud 배포
+
+이 앱은 클라우드 배포를 지원합니다 — **데이터·모델을 git에 넣지 않고, 최초 접속 시
+자동 생성**합니다 (합성 데이터는 seed 고정이라 언제 생성해도 동일함을 해시로 검증).
+
+1. [share.streamlit.io](https://share.streamlit.io) → New app → 이 repo / `main` / `app.py`
+2. 첫 접속 시 "데모 데이터셋 생성 중..." 약 1분 (컨테이너 재부팅 시에만 재생성)
+3. Secrets·환경변수 불필요
+
 ## 빠른 시작
 
 ```bash
