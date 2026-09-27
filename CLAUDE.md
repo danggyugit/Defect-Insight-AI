@@ -1,6 +1,6 @@
 # Defect-Insight-AI
 
-첨단 제조(디스플레이/반도체/2차전지) 불량 영향인자 자동 탐색 플랫폼.
+공정 제조업 범용(디스플레이/반도체/2차전지/식품 등) 불량 영향인자 자동 탐색 플랫폼.
 통계분석 + ML + Explainable AI(SHAP) + Rule Discovery → Streamlit dashboard + 자동 report.
 
 **전체 명세: [docs/PROJECT_PROMPT.md](docs/PROJECT_PROMPT.md)** — 기능 추가/변경 시 항상 이 명세 기준으로 판단.

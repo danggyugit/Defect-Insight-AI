@@ -7,7 +7,7 @@
 ![PyTorch](https://img.shields.io/badge/DL-PyTorch%201D--CNN-EE4C2C?logo=pytorch&logoColor=white)
 ![Tests](https://img.shields.io/badge/pytest-56%20passed-brightgreen)
 
-첨단 제조산업(디스플레이·반도체·2차전지)에서 불량 발생 시 **수백 개의 공정 변수 중
+공정 제조업 전반(디스플레이·반도체·2차전지·식품 등)에서 불량 발생 시 **수백 개의 공정 변수 중
 어떤 변수가 유의한지, 어떤 변수 조합이 불량과 관련되는지, 어떤 조건에서 불량 확률이
 증가하는지** 자동으로 탐색하는 분석 플랫폼입니다.
 
