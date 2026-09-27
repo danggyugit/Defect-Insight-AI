@@ -235,7 +235,9 @@ def partial_dependence_2d(
             raise KeyError(f"Feature {feat!r} not in trained feature set")
 
     model = result.models[model_name]
-    X = result.X_train
+    # float64 캐스팅: pandas 3는 float32 컬럼에 float64 grid 값 대입을 거부
+    # (LossySetitemError) — sklearn partial_dependence 내부 대입 호환용.
+    X = result.X_train.astype("float64")
     if len(X) > _PD_SAMPLE_SIZE:
         X = X.sample(_PD_SAMPLE_SIZE, random_state=RANDOM_SEED)
 

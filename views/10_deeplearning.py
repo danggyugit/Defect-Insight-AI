@@ -121,9 +121,44 @@ def cached_train_cnn(n_epochs: int, trace_mtime: float) -> TraceTrainResult:
     return result
 
 
-if st.button("🚀 CNN 학습 / 재학습", type="primary") or "dl_trained" in st.session_state:
+from src.dl.trace_model import TRACE_MODEL_PATH, load_trace_model, predict_proba, _normalize
+
+
+@st.cache_resource(show_spinner="사전 학습된 CNN 로딩 중...")
+def cached_saved_result(model_mtime: float) -> TraceTrainResult | None:
+    """repo에 커밋된 사전 학습 모델을 TraceTrainResult 형태로 복원.
+
+    Why: 클라우드에서 방문자마다 CNN을 학습하면 CPU throttle을 유발 —
+    저장된 모델로 지표·saliency를 즉시 제공하고, 재학습은 선택으로 둔다.
+    saliency 샘플 선정을 위해 불량 샘플만 forward 1회 수행 (수 초).
+    """
+    payload = load_trace_model()
+    if payload is None:
+        return None
+    model, mean, std, metrics = payload
+    y = order["DEFECT_FLAG"].to_numpy().astype("float32")
+    defect_idx = np.where(y == 1)[0]
+    Xd = _normalize(traces[defect_idx], mean, std)
+    probs = predict_proba(model, Xd)
+    return TraceTrainResult(
+        model=model, metrics=metrics, test_probs=probs,
+        test_labels=np.ones(len(defect_idx), dtype="float32"),
+        test_indices=defect_idx, trace_mean=mean, trace_std=std, history=[],
+    )
+
+
+_retrain = st.button("🚀 CNN 재학습 (수 분 소요 — 저장된 결과로 충분하면 불필요)")
+if _retrain:
     st.session_state["dl_trained"] = True
+
+result = None
+if "dl_trained" in st.session_state:
     result = cached_train_cnn(epochs, TRACE_PATH.stat().st_mtime)
+elif TRACE_MODEL_PATH.exists():
+    result = cached_saved_result(TRACE_MODEL_PATH.stat().st_mtime)
+    st.caption("💾 **사전 학습된 모델**의 결과입니다 (repo 포함) — epochs를 바꿔 재학습하려면 위 버튼을 사용하세요.")
+
+if result is not None:
 
     c1, c2, c3, c4, c5 = st.columns(5)
     c1.metric("ROC-AUC", f"{result.metrics['roc_auc']:.4f}")
@@ -163,11 +198,16 @@ if st.button("🚀 CNN 학습 / 재학습", type="primary") or "dl_trained" in s
 
     left, right = st.columns(2)
     with left:
-        fig = px.line(
-            y=result.history, markers=True, height=280,
-            labels={"index": "Epoch", "y": "Train Loss"}, title="학습 곡선",
-        )
-        st.plotly_chart(fig, use_container_width=True)
+        if not result.history:
+            st.caption("학습 곡선은 재학습 시 표시됩니다 (저장된 모델은 지표만 보관).")
+            fig = None
+        else:
+            fig = px.line(
+                y=result.history, markers=True, height=280,
+                labels={"index": "Epoch", "y": "Train Loss"}, title="학습 곡선",
+            )
+        if fig is not None:
+            st.plotly_chart(fig, use_container_width=True)
     with right:
         # tabular 모델과 비교
         if tab_metrics is not None:

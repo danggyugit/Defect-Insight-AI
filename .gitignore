@@ -11,3 +11,9 @@ reports/*.html
 .streamlit/secrets.toml
 data/raw/*.npz
 models/*.pt
+
+# 클라우드 배포용 사전 계산 산출물 — CPU throttle 방지 위해 커밋 (전부 100MB 미만)
+!data/raw/manufacturing_data.parquet
+!data/raw/fdc_traces.npz
+!models/train_result.joblib
+!models/trace_cnn.pt

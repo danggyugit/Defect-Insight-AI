@@ -117,7 +117,7 @@ src/
   ② 유의성/MI 상위 선별 → ③ 상위 10~20개만 SHAP interaction/PDP.
 - **딥러닝 (파형 데이터 전용)**: tabular 요약값에는 tree 모델이 최적이지만,
   FDC 센서 raw trace의 **파형 형태 이상**(spike/진동/drift/level shift)은 요약
-  통계로 잡히지 않음 — 1D-CNN이 파형에서 직접 학습 (실측 PR-AUC 0.71 vs
+  통계로 잡히지 않음 — 1D-CNN이 파형에서 직접 학습 (실측 PR-AUC 0.78 vs
   tabular LGBM 0.55). saliency(gradient×input)로 판단 근거 시간 구간을 표시.
   CNN도 동일하게 LOT GroupSplit + pos_weight 적용.
 

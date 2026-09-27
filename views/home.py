@@ -87,7 +87,7 @@ st.caption(
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("심어진 영향인자 검출", "6 / 6", help="TEMP_004, PRESSURE_012, SPEED_007(U자형), TIME_003, 설비 shift, 조합효과 — 전부 상위 검출")
 c2.metric("변수 조합 규칙 발견", "불량률 9.0×", help="TEMP_004>83 AND PRESSURE_012>1.27 → 불량률 51% (전체 평균 5.7%의 9배)")
-c3.metric("파형 딥러닝 성능", "PR-AUC 0.71", delta="+0.16 vs tabular", help="요약값 최고 모델(LightGBM 0.55) 대비 — 파형 정보의 보완 효과 실증")
+c3.metric("파형 딥러닝 성능", "PR-AUC 0.78", delta="+0.23 vs tabular", help="요약값 최고 모델(LightGBM 0.55) 대비 — 파형 정보의 보완 효과 실증")
 c4.metric("가짜 상관 식별", "2건 경고", help="불량과 무관하지만 유의 변수와 강하게 상관된 confounder 2건을 화면 경고로 안내")
 
 st.markdown(

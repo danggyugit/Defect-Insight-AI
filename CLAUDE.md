@@ -63,7 +63,7 @@ Generator에 심어진 mechanism — 분석 파이프라인이 이를 검출해�
 FDC trace (딥러닝용, `fdc_traces.npz`): 샘플당 3센서×128step 파형.
 DEFECT_TYPE별 파형 이상 — MURA=drift, PARTICLE=spike, SCRATCH=진동,
 OPEN_SHORT=level shift. 요약 통계로는 안 잡히는 신호라 1D-CNN이 의미를 가짐
-(실측: CNN PR-AUC 0.71 vs tabular LGBM 0.55). CNN도 LOT GroupSplit + pos_weight 필수.
+(실측: CNN PR-AUC 0.78 vs tabular LGBM 0.55). CNN도 LOT GroupSplit + pos_weight 필수.
 
 기본 규모: 30,000 samples / ~1,200 LOTs / 400 features / defect rate 6% / 2026-01~08.
 
