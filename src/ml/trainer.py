@@ -95,13 +95,13 @@ def _build_models(
             ]
         ),
         "random_forest": RandomForestClassifier(
-            n_estimators=300,
+            n_estimators=200,
             class_weight="balanced",
             n_jobs=-1,
             random_state=RANDOM_SEED,
         ),
         "xgboost": XGBClassifier(
-            n_estimators=300,
+            n_estimators=200,
             learning_rate=0.1,
             max_depth=6,
             subsample=0.8,
@@ -112,7 +112,7 @@ def _build_models(
             random_state=RANDOM_SEED,
         ),
         "lightgbm": LGBMClassifier(
-            n_estimators=300,
+            n_estimators=200,
             learning_rate=0.1,
             num_leaves=63,
             subsample=0.8,

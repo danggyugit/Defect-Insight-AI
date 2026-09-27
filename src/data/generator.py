@@ -244,7 +244,8 @@ def generate_dataset(config: GeneratorConfig | None = None) -> pd.DataFrame:
             "YIELD": yield_col.to_numpy(),
         }
     )
-    feature_df = pd.DataFrame({k: columns[k] for k in feature_names})
+    # float32: 수치 정밀도는 분석에 충분하고 메모리 절반 (클라우드 2.7GB 대응)
+    feature_df = pd.DataFrame({k: columns[k] for k in feature_names}).astype(np.float32)
     df = pd.concat([df, feature_df], axis=1).sort_values("TIMESTAMP").reset_index(drop=True)
 
     logger.info(
